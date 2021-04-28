@@ -38,6 +38,16 @@ type SpanContext struct {
 	Err      error   `json:"-"`
 }
 
+type TraceContext struct {
+	TraceId      string `json:"trace_id"`
+	GlobalTicket string `json:"globalTicket"`
+	RPCId        string `json:"rpcId"`
+	RPCIndex     string `json:"rpcIndex"`
+	RPCParentId  string `json:"parentRpcId"`
+	RPCEntryURL  string `json:"rpcEntryUrl"`
+	MonitorKey   string `json:"monitorTrackId"`
+}
+
 // SpanModel structure.
 //
 // If using this library to instrument your application you will not need to
@@ -46,7 +56,9 @@ type SpanContext struct {
 // export data to a Zipkin server using the Zipkin V2 Span model.
 type SpanModel struct {
 	SpanContext
+	TraceContext
 	Name           string            `json:"name,omitempty"`
+	Value          string            `json:"value,omitempty"`
 	Kind           Kind              `json:"kind,omitempty"`
 	Timestamp      time.Time         `json:"-"`
 	Duration       time.Duration     `json:"-"`
